@@ -1,0 +1,42 @@
+<script type="module">
+  function now() {
+    return performance.now();
+  }
+  setTimeout(() => {
+    console.log({
+      time: now(),
+      from: 'setTimeout',
+      'document.hidden': document.hidden,
+      'document.visibiltyState': document.visibilityState
+      }
+    );
+  }, 100);
+
+  let start = now();
+  let last = start;
+  function step(timestamp) {
+    const elapsed = timestamp - last;
+    // if (elapsed > 100) {
+      console.log({
+        time: now(),
+        from: 'raf',
+        'document.hidden': document.hidden,
+        'document.visibiltyState': document.visibilityState
+        }
+      );
+      last = now();
+    // }
+    /*
+    if (timestamp - start < 3000) {
+      window.requestAnimationFrame(step);
+    }
+    */
+  }
+  window.requestAnimationFrame(step);
+
+  document.addEventListener('visibilitychange', () => {
+    console.log('[visibilityState]', document.visibilityState)
+  });
+</script>
+<a href="./background.html">open</a>
+
